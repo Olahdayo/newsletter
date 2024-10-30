@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newsletter Signup</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        font-size: 16px;
+        background-color: hsl(235, 18%, 26%);
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        background-color: white;
+        max-width: 800px;
+        width: 100%;
+        margin: 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .flex-container {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+      .content {
+        padding: 40px;
+      }
+      .image-container {
+        background-image: url('/newsletter-sign-up-with-success-message-main/newsletter-sign-up-with-success-message-main/assets/images/illustration-sign-up-desktop.svg');
+        background-size: cover;
+        background-position: center;
+        min-height: 200px;
+      }
+      h1 {
+        color: #333;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+      #icon {
+        padding-right: 10px;
+      }
+      input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: hsl(234, 29%, 20%);;
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+      }
+      button:hover {
+        background-color: #FF5474;
+      }
+      .error {
+        color: #FF5474;
+        margin-bottom: 10px;
+      }
+      .success-container {
+        background-color: white;
+        max-width: 400px;
+        width: 100%;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .success-container h2 {
+        color: #28a745;
+      }
+
+      /* Media query for tablets and larger phones */
+      @media (min-width: 768px) {
+        .flex-container {
+          flex-direction: row;
+        }
+        .content {
+          width: 60%;
+        }
+        .image-container {
+          width: 40%;
+          min-height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-container" class="container">
+      <div class="flex-container">
+        <div class="content">
+          <div id="signup-form">
+            <h1>Stay updated!</h1>
+            <p>Join 60,000+ product managers receiving monthly updates on:</p>
+            <ul>
+              <li> <span id="icon"
+                            ><img
+                            src="/newsletter-sign-up-with-success-message-main/newsletter-sign-up-with-success-message-main/assets/images/icon-list.svg" /></span
+                            >Product discovery and building what matters</li>
+              <li><span id="icon"
+                        ><img
+                        src="/newsletter-sign-up-with-success-message-main/newsletter-sign-up-with-success-message-main/assets/images/icon-list.svg"
+                        /></span>
+                        Measuring to ensure updates are a success</li>
+              <li><span id="icon"
+                        ><img
+                        src="/newsletter-sign-up-with-success-message-main/newsletter-sign-up-with-success-message-main/assets/images/icon-list.svg"
+                        /></span>
+                        And much more!</li>
+            </ul>
+            <form id="newsletter-form">
+              <label for="email">Email address:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email@company.com"
+                required
+              />
+              <div id="error-message" class="error"></div>
+              <button type="submit">Subscribe to monthly newsletter</button>
+            </form>
+          </div>
+        </div>
+        <div class="image-container"></div>
+      </div>
+    </div>
+
+    <div id="success-message" class="success-container" style="display: none">
+      <h2>Thanks for subscribing!</h2>
+      <p>
+        A confirmation email has been sent to
+        <strong id="confirmed-email"></strong>. Please open it and click the
+        button inside to confirm your subscription.
+      </p>
+      <button onclick="location.reload()">Dismiss message</button>
+    </div>
+
+    <script>
+      // Get elements
+      var form = document.getElementById("newsletter-form");
+      var emailInput = document.getElementById("email");
+      var errorMessage = document.getElementById("error-message");
+      var mainContainer = document.getElementById("main-container");
+      var successMessage = document.getElementById("success-message");
+      var confirmedEmail = document.getElementById("confirmed-email");
+
+      // Form submit event
+      form.onsubmit = function (event) {
+        event.preventDefault();
+        var email = emailInput.value;
+
+        if (email === "") {
+          showError("Please enter your email address.");
+        } else if (!isValidEmail(email)) {
+          showError("Please enter a valid email address.");
+        } else {
+          showSuccess(email);
+        }
+      };
+
+      // Show error message
+      function showError(message) {
+        errorMessage.textContent = message;
+      }
+
+      // Show success message
+      function showSuccess(email) {
+        mainContainer.style.display = "none";
+        successMessage.style.display = "block";
+        confirmedEmail.textContent = email;
+      }
+
+      // Simple email validation
+      function isValidEmail(email) {
+        return email.includes("@") && email.includes(".");
+      }
+    </script>
+  </body>
+</html>
